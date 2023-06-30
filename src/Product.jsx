@@ -1,11 +1,19 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-export const Product = ({ product }) => {
+export const Product = ({ product, onRemove }) => {
   return (
-    <View style={styles.product}>
-      <Text>{product.title}</Text>
-    </View>
+    <TouchableOpacity
+      activeOpacity={0.5}
+      onPress={() => {
+        console.log("Press", product);
+      }}
+      onLongPress={onRemove.bind(null, product.id)}
+    >
+      <View style={styles.product}>
+        <Text>{product.title}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 

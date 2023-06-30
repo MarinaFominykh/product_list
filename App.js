@@ -16,15 +16,21 @@ export default function App() {
       },
     ]);
   };
+
+  const removeProduct = (id) => {
+    setProducts((prev) => prev.filter((product) => product.id !== id));
+  };
   return (
     <View>
-      <Navbar title="Product List" />
+      <Navbar title="Список продуктов" />
       <View style={styles.container}>
         <AddProduct onSubmit={addProduct} />
         <FlatList
           keyExtractor={(item) => item.id}
           data={products}
-          renderItem={({ item }) => <Product product={item} />}
+          renderItem={({ item }) => (
+            <Product product={item} onRemove={removeProduct} />
+          )}
         />
         {/* <View>
           {products.map((product) => (
