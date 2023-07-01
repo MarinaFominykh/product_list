@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import { Navbar } from "./src/Navbar";
-import { AddProduct } from "./src/AddProduct";
-import { Product } from "./src/Product";
+import { Navbar } from "./src/components/Navbar";
+import { MainScreen } from "./src/screens/MainScreen";
+import { ProductScreen } from "./src/screens/ProductScreen";
 
 export default function App() {
+  const [productId, setProductId] = useState(null);
   const [products, setProducts] = useState([]);
 
   const addProduct = (title) => {
@@ -20,24 +21,21 @@ export default function App() {
   const removeProduct = (id) => {
     setProducts((prev) => prev.filter((product) => product.id !== id));
   };
+  let content = (
+    <MainScreen
+      products={products}
+      addProduct={addProduct}
+      removeProduct={removeProduct}
+    ></MainScreen>
+  );
+
+  if (productId) {
+    content = <ProductScreen></ProductScreen>;
+  }
   return (
     <View>
       <Navbar title="Список продуктов" />
-      <View style={styles.container}>
-        <AddProduct onSubmit={addProduct} />
-        <FlatList
-          keyExtractor={(item) => item.id}
-          data={products}
-          renderItem={({ item }) => (
-            <Product product={item} onRemove={removeProduct} />
-          )}
-        />
-        {/* <View>
-          {products.map((product) => (
-            <Product key={product.id} product={product} />
-          ))}
-        </View> */}
-      </View>
+      <View style={styles.container}>{content}</View>
     </View>
   );
 }
