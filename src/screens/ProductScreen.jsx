@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
 import { THEME } from "../theme";
 import { AppCard } from "../components/ui/AppCard";
+import { EditModal } from "../components/EditModal";
 
 export const ProductScreen = ({ goBack, product, onRemove }) => {
+  const [modal, setModal] = useState(false);
   return (
     <View>
+      <EditModal visible={modal} onCancel={() => setModal(false)} />
       <AppCard style={styles.card}>
         <Text styl={styles.title}>{product.title}</Text>
-        <Button title="Редактировать" />
+        <Button title="Редактировать" onPress={() => setModal(true)} />
       </AppCard>
       <View style={styles.buttons}>
         <View style={styles.button}>
