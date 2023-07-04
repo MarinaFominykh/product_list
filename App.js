@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, Alert } from "react-native";
 import { Navbar } from "./src/components/Navbar";
 import { MainScreen } from "./src/screens/MainScreen";
 import { ProductScreen } from "./src/screens/ProductScreen";
@@ -28,7 +28,27 @@ export default function App() {
   };
 
   const removeProduct = (id) => {
-    setProducts((prev) => prev.filter((product) => product.id !== id));
+    const product = products.find((p) => p.id === id);
+    Alert.alert(
+      "Удаление элемента",
+      `Вы уверены, что хотите удалить "${product.title}"?`,
+      [
+        {
+          text: "Отмена",
+          style: "cancel",
+        },
+        {
+          text: "Удалить",
+          onPress: () => {
+            setProductId(null);
+            setProducts((prev) => prev.filter((product) => product.id !== id));
+          },
+        },
+      ],
+      {
+        cancelable: false,
+      }
+    );
   };
   let content = (
     <MainScreen
@@ -45,6 +65,7 @@ export default function App() {
     );
     content = (
       <ProductScreen
+        onRemove={removeProduct}
         goBack={() => {
           setProductId(null);
         }}

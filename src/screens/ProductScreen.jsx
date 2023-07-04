@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
 import { THEME } from "../theme";
 import { AppCard } from "../components/ui/AppCard";
 
-export const ProductScreen = ({ goBack, product }) => {
+export const ProductScreen = ({ goBack, product, onRemove }) => {
   return (
     <View>
       <AppCard style={styles.card}>
@@ -19,7 +19,7 @@ export const ProductScreen = ({ goBack, product }) => {
           <Button
             title="Удалить"
             color={THEME.DANGER_COLOR}
-            onPress={() => console.log("remove")}
+            onPress={() => onRemove(product.id)}
           />
         </View>
       </View>
