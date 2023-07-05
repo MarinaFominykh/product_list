@@ -4,11 +4,21 @@ import { THEME } from "../theme";
 import { AppCard } from "../components/ui/AppCard";
 import { EditModal } from "../components/EditModal";
 
-export const ProductScreen = ({ goBack, product, onRemove }) => {
+export const ProductScreen = ({ goBack, product, onRemove, onSave }) => {
   const [modal, setModal] = useState(false);
+
+  const saveHandler = (title) => {
+    onSave(product.id, title);
+    setModal(false);
+  };
   return (
     <View>
-      <EditModal visible={modal} onCancel={() => setModal(false)} />
+      <EditModal
+        value={product.title}
+        visible={modal}
+        onCancel={() => setModal(false)}
+        onSave={saveHandler}
+      />
       <AppCard style={styles.card}>
         <Text styl={styles.title}>{product.title}</Text>
         <Button title="Редактировать" onPress={() => setModal(true)} />

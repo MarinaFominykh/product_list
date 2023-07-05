@@ -50,6 +50,17 @@ export default function App() {
       }
     );
   };
+
+  const updateProduct = (id, title) => {
+    setProducts((old) =>
+      old.map((product) => {
+        if (product.id === id) {
+          product.title = title;
+        }
+        return product;
+      })
+    );
+  };
   let content = (
     <MainScreen
       products={products}
@@ -70,6 +81,7 @@ export default function App() {
           setProductId(null);
         }}
         product={selectedProduct}
+        onSave={updateProduct}
       />
     );
   }
