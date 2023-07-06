@@ -11,7 +11,7 @@ export const Product = ({ product, onRemove, onOpen }) => {
       onLongPress={onRemove.bind(null, product.id)}
     >
       <View style={styles.product}>
-        <Text>{product.title}</Text>
+        <Text style={styles.title}>{product.title}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -26,5 +26,8 @@ const styles = StyleSheet.create({
     borderColor: "#eee",
     borderRadius: 5,
     marginBottom: 10,
+  },
+  title: {
+    fontFamily: "roboto-bold",
   },
 });

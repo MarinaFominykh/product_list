@@ -1,13 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { StyleSheet, Text, View, FlatList, Alert } from "react-native";
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 import { Navbar } from "./src/components/Navbar";
 import { MainScreen } from "./src/screens/MainScreen";
 import { ProductScreen } from "./src/screens/ProductScreen";
 
+async function loadApp() {
+  await Font.loadAsync({
+    "roboto-regular": require("./assets/fonts/Roboto-Regular.ttf"),
+    "roboto-bold": require("./assets/fonts/Roboto-Bold.ttf"),
+  });
+}
+// SplashScreen.preventAutoHideAsync();
 export default function App() {
+  const [isReady, setIsReady] = useState(false);
   const [productId, setProductId] = useState(null);
   const [products, setProducts] = useState([]);
 
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await Font.loadAsync({
+          "roboto-regular": require("./assets/fonts/Roboto-Regular.ttf"),
+          "roboto-bold": require("./assets/fonts/Roboto-Bold.ttf"),
+        });
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setIsReady(true);
+      }
+    }
+
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (isReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [isReady]);
+
+  if (!isReady) {
+    return null;
+  }
+
+  // if (!isReady) {
+  //   return (
+  //     <AppLoading
+  //       startAsync={loadApp}
+  //       onError={(err) => console.log(err)}
+  //       onFinish={() => setIsReady(true)}
+  //     />
+  //   );
+  // }
   const addProduct = (title) => {
     setProducts((prev) => [
       ...prev,
@@ -79,7 +125,9 @@ export default function App() {
   return (
     <View>
       <Navbar title="Список продуктов" />
-      <View style={styles.container}>{content}</View>
+      <View style={styles.container} onLayout={onLayoutRootView}>
+        {content}
+      </View>
     </View>
   );
 }
