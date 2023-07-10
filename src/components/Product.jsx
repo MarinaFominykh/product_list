@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { AppText } from "./ui/AppText";
 export const Product = ({ product, onRemove, onOpen }) => {
   return (
     <TouchableOpacity
@@ -11,7 +11,7 @@ export const Product = ({ product, onRemove, onOpen }) => {
       onLongPress={onRemove.bind(null, product.id)}
     >
       <View style={styles.product}>
-        <Text style={styles.title}>{product.title}</Text>
+        <AppText>{product.title}</AppText>
       </View>
     </TouchableOpacity>
   );
@@ -26,8 +26,5 @@ const styles = StyleSheet.create({
     borderColor: "#eee",
     borderRadius: 5,
     marginBottom: 10,
-  },
-  title: {
-    fontFamily: "roboto-bold",
   },
 });

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
+import { View, StyleSheet, TextInput, Button, Alert } from "react-native";
+import { FontAwesome, AntDesign } from "@expo/vector-icons";
 import { THEME } from "../theme";
 import { AppCard } from "../components/ui/AppCard";
 import { EditModal } from "../components/EditModal";
+import { AppTextBold } from "../components/ui/AppTextBold";
+import { AppButton } from "../components/ui/AppButton";
 
 export const ProductScreen = ({ goBack, product, onRemove, onSave }) => {
   const [modal, setModal] = useState(false);
@@ -20,20 +23,25 @@ export const ProductScreen = ({ goBack, product, onRemove, onSave }) => {
         onSave={saveHandler}
       />
       <AppCard style={styles.card}>
-        <Text styl={styles.title}>{product.title}</Text>
-        <Button title="Редактировать" onPress={() => setModal(true)} />
+        <AppTextBold style={styles.title}>{product.title}</AppTextBold>
+        <AppButton onPress={() => setModal(true)}>
+          <FontAwesome name="edit" size={20} />
+        </AppButton>
       </AppCard>
       <View style={styles.buttons}>
         <View style={styles.button}>
-          <Button title="Назад" color={THEME.GREY_COLOR} onPress={goBack} />
+          <AppButton color={THEME.GREY_COLOR} onPress={goBack}>
+            <AntDesign name="back" size={20} color="#fff" />
+          </AppButton>
         </View>
 
         <View style={styles.button}>
-          <Button
-            title="Удалить"
+          <AppButton
             color={THEME.DANGER_COLOR}
             onPress={() => onRemove(product.id)}
-          />
+          >
+            <FontAwesome name="remove" size={20} color="#fff" />
+          </AppButton>
         </View>
       </View>
     </View>

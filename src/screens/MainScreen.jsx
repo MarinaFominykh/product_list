@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, FlatList, Image } from "react-native";
+import { View, StyleSheet, FlatList, Image } from "react-native";
 import { AddProduct } from "../components/AddProduct";
 import { Product } from "../components/Product";
 export const MainScreen = ({
