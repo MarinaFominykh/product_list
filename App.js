@@ -5,6 +5,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { Navbar } from "./src/components/Navbar";
 import { MainScreen } from "./src/screens/MainScreen";
 import { ProductScreen } from "./src/screens/ProductScreen";
+import { THEME } from "./src/theme";
 
 async function loadApp() {
   await Font.loadAsync({
@@ -134,7 +135,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 30,
+    paddingHorizontal: THEME.PADDING_HORIZONTAL,
     paddingVertical: 20,
   },
 });

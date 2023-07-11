@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Button,
+  Alert,
+  Keyboard,
+} from "react-native";
 import { THEME } from "../theme";
 import { AntDesign } from "@expo/vector-icons";
 
@@ -9,6 +17,7 @@ export const AddProduct = ({ onSubmit }) => {
     if (value.trim()) {
       onSubmit(value);
       setValue("");
+      Keyboard.dismiss();
     } else {
       Alert.alert("Название продукта не может быть пустым");
     }

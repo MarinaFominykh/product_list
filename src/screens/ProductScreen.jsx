@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TextInput, Button, Alert } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import { FontAwesome, AntDesign } from "@expo/vector-icons";
 import { THEME } from "../theme";
 import { AppCard } from "../components/ui/AppCard";
@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    width: "40%",
+    // width: Dimensions.get("window").width / 3,
+    width: Dimensions.get("window").width > 400 ? 150 : 100,
   },
   title: {
     fontSize: 20,
